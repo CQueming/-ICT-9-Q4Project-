@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Length Conversion Calculator</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      margin: 0 auto;
+    }
+
+    table td,
+    table th {
+      padding: 10px;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #333333;
+    }
+
+    input[type="number"] {
+      padding: 5px;
+      width: 150px;
+    }
+
+    .convert-btn {
+      padding: 10px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .convert-btn-disabled {
+      background-color: #999999;
+      cursor: not-allowed;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+  </style>
+  <script>
+    function enableConversion() {
+      document.getElementById("convertBtn").disabled = false;
+      document.getElementById("convertBtn").classList.remove("convert-btn-disabled");
+    }
+
+    function convertLength() {
+      // Get the value entered by the user
+      var inputUnit = document.getElementById("inputUnit").value;
+      var inputValue = parseFloat(document.getElementById("inputValue").value);
+
+      // Convert the input value to millimeters
+      var millimeters = 0;
+      switch (inputUnit) {
+        case "millimeters":
+          millimeters = inputValue;
+          break;
+        case "centimeters":
+          millimeters = inputValue * 10;
+          break;
+        case "meters":
+          millimeters = inputValue * 1000;
+          break;
+        case "kilometers":
+          millimeters = inputValue * 1000000;
+          break;
+      }
+
+      // Convert millimeters to other units
+      var centimeters = millimeters / 10;
+      var meters = millimeters / 1000;
+      var kilometers = millimeters / 1000000;
+
+      // Display the converted values with unit symbols
+      document.getElementById("centimeters").textContent = centimeters + " cm";
+      document.getElementById("meters").textContent = meters + " m";
+      document.getElementById("kilometers").textContent = kilometers + " km";
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Length Conversion Calculator</h1>
+    
+    <table>
+      <tr>
+        <th>Input Unit</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>
+          <select id="inputUnit" onchange="enableConversion()">
+            <option value="millimeters">Millimeters</option>
+            <option value="centimeters">Centimeters</option>
+            <option value="meters">Meters</option>
+            <option value="kilometers">Kilometers</option>
+          </select>
+        </td>
+        <td>
+          <input type="number" id="inputValue" onchange="enableConversion()" />
+        </td>
+      </tr>
+    </table>
+
+    <br />
+
+    <button id="convertBtn" class="convert-btn convert-btn-disabled" onclick="convertLength()" disabled>Convert</button>
+
+    <br /><br />
+
+    <table>
+      <tr>
+        <th>Centimeters</th>
+        <th>Meters</th>
+<th>Kilometers</th>
+</tr>
+<tr>
+<td id="centimeters"></td>
+<td id="meters"></td>
+<td id="kilometers"></td>
+</tr>
+</table>
+
+  </div>
+</body>
+</html>
